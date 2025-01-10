@@ -1,14 +1,25 @@
-import Head from 'next/head';
+export const metadata = {
+  title: 'DIY | Multycomm',
+  description: 'Explore our DIY solutions for leveraging WhatsApp API services for your business.',
+  alternates: {
+    canonical: 'https://www.multycomm.com/diy'
+  },
+  openGraph: {
+    title: 'DIY | Multycomm',
+    description: 'Explore our DIY solutions for leveraging WhatsApp API services for your business.',
+    url: 'https://www.multycomm.com/diy',
+    type: 'website'
+  },
+  twitter: {
+    title: 'DIY | Multycomm',
+    description: 'Explore our DIY solutions for leveraging WhatsApp API services for your business.'
+  }
+}
 
 
 export default function DIY() {
   return (
     <>
-        <Head>
-          <title>DIY | Your Business Name</title>
-          <meta name="description" content="Explore our DIY solutions for leveraging WhatsApp API services for your business." />
-          <link rel="canonical" href="https://yourwebsite.com/diy" />
-        </Head>
         <div className="max-w-4xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-[#364c63] mb-8">DIY WhatsApp API Integration</h1>
         <p className="text-lg mb-6">

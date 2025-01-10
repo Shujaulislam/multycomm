@@ -1,14 +1,24 @@
-import Head from 'next/head';
-
+export const metadata = {
+  title: 'About Us | Multycomm',
+  description: 'Learn more about our mission to enhance business communication using WhatsApp API solutions.',
+  alternates: {
+    canonical: 'https://yourwebsite.com/about'
+  },
+  openGraph: {
+    title: 'About Us | Multycomm',
+    description: 'Learn more about our mission to enhance business communication using WhatsApp API solutions.',
+    url: 'https://yourwebsite.com/about',
+    type: 'website'
+  },
+  twitter: {
+    title: 'About Us | Multycomm',
+    description: 'Learn more about our mission to enhance business communication using WhatsApp API solutions.'
+  }
+}
 
 export default function About() {
   return (
     <>
-      <Head>
-        <title>About Us | Your Business Name</title>
-        <meta name="description" content="Learn more about our mission to enhance business communication using WhatsApp API solutions." />
-        <link rel="canonical" href="https://yourwebsite.com/about" />
-      </Head>
       <div className="max-w-4xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-[#364c63] mb-8">About Multycomm</h1>
         <p className="text-lg mb-6">

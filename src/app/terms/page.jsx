@@ -2,12 +2,12 @@ export const metadata = {
   title: 'Terms and Conditions | Multycomm',
   description: 'Read our terms and conditions to understand how we provide our WhatsApp API services.',
   alternates: {
-    canonical: 'https://yourwebsite.com/terms'
+    canonical: 'https://www.multycomm.com/terms'
   },
   openGraph: {
     title: 'Terms and Conditions | Multycomm',
     description: 'Read our terms and conditions to understand how we provide our WhatsApp API services.',
-    url: 'https://yourwebsite.com/terms',
+    url: 'https://www.multycomm.com/terms',
     type: 'website'
   },
   twitter: {

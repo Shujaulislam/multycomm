@@ -6,6 +6,7 @@ import HeroSection from '@/components/HeroSection'
 import FeatureSection from '@/components/FeatureSection'
 import PricingSection from '@/components/PricingSection'
 
+
 export default function Home() {
   return (
     <div>
@@ -31,6 +32,8 @@ export default function Home() {
           transition={{ duration: 0.5 }}
       >
         <HeroSection />
+
+        {/* Section 1 */}
         <FeatureSection
             title="Why Choose Us"
             features={[
@@ -41,6 +44,8 @@ export default function Home() {
             ]}
           />
           <PricingSection />
+
+          {/* Section 2 */}
           <FeatureSection
             title="Boost Your Business"
             features={[
@@ -50,6 +55,7 @@ export default function Home() {
               { title: 'Customizable', description: 'Tailor the solution to fit your specific business needs.' },
             ]}
           />
+          <PricingSection />
         </motion.div>
 
     </div>

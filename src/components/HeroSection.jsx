@@ -7,15 +7,15 @@ import ContactForm from './ContactForm'
 
 const slides = [
   {
-    image: '/hero-1.jpg',
+    image: '/images/hero-1.jpg',
     alt: 'WhatsApp API Integration',
   },
   {
-    image: '/hero-2.jpg',
+    image: '/images/hero-2.jpg',
     alt: 'Automated Customer Engagement',
   },
   {
-    image: '/hero-3.jpg',
+    image: '/images/hero-3.jpg',
     alt: 'Scalable Communication',
   },
 ]
