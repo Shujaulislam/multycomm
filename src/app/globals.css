@@ -23,6 +23,9 @@
   body {
     @apply text-gray-900;
   }
+  :root {
+    --radius: 0.5rem;
+  }
 }
 
 /* @media (prefers-color-scheme: dark) {
