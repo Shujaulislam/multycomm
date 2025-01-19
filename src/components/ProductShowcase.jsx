@@ -1,150 +1,230 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { MessageCircle, ShoppingCart, Users, Bell, BarChart, Lock, CircleCheckBig, FileText, Upload, CheckCircle, PieChart, Code, Send } from 'lucide-react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { Check, MessageCircle, Upload, FileText, BarChart2, Bot } from 'lucide-react'
 
-const iconMap = {
-  MessageCircle,
-  ShoppingCart,
-  Users,
-  Bell,
-  BarChart,
-  Lock,
-  CircleCheckBig,
-  FileText,
-  Upload,
-  CheckCircle,
-  PieChart,
-  Code,
-  Send,
-};
+const products = [
+  {
+    name: "WhatsApp Business API",
+    icon: "/whatsapp-business.svg",
+    color: "#25D366",
+    description: "Enterprise-grade solution with AI-powered features for large-scale business communication",
+    features: [
+      { icon: Bot, text: "AI Enabled Smart Responses" },
+      { icon: MessageCircle, text: "Canned Responses" },
+      { icon: Check, text: "Contact History" },
+      { icon: MessageCircle, text: "Outbound Campaign" },
+      { icon: MessageCircle, text: "Create Message Flow" },
+      { icon: MessageCircle, text: "Automated Personalised Messaging" },
+      { icon: BarChart2, text: "CSAT Analytics" },
+      { icon: FileText, text: "Polls, Forms, RSVP" },
+      { icon: BarChart2, text: "Campaign Category Pricing" },
+      { icon: Check, text: "Campaign Scheduling" },
+      { icon: Check, text: "Automated Configuration" }
+    ]
+  },
+  {
+    name: "WatsApp.Shop",
+    icon: "/watsapp-shop.svg",
+    color: "#FF6B6B",
+    description: "Streamlined solution for bulk messaging and template-based communication",
+    features: [
+      { icon: FileText, text: "Template Management" },
+      { icon: Upload, text: "Bulk Upload" },
+      { icon: Check, text: "Validation" },
+      { icon: BarChart2, text: "Reports" },
+      { icon: MessageCircle, text: "API Based Messaging" },
+      { icon: MessageCircle, text: "Outbound Campaign" },
+      { icon: BarChart2, text: "Consumption Based Charging" },
+      { icon: FileText, text: "Multi-Media Content Delivery" },
+      { icon: MessageCircle, text: "Automated Personalised Messaging" },
+      { icon: Check, text: "Message Scheduler" },
+      { icon: Check, text: "WhatsApp Session Manager" }
+    ]
+  }
+]
 
-export default function ProductShowcase({ 
-  title, 
-  features, 
-  imageSrc, 
-  imageAlt,
-  primaryColor = '#ef6f53',
-  secondaryColor = '#075E54'
-}) {
-  const featureRefs = useRef([]);
-  const [showForm, setShowForm] = useState(false);
+const Card3D = ({ product }) => {
+  const cardRef = useRef(null)
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.setAttribute('data-animated', 'true');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
 
-    featureRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
+  const mouseXSpring = useSpring(x)
+  const mouseYSpring = useSpring(y)
 
-    return () => {
-      featureRefs.current.forEach((ref) => {
-        if (ref) observer.unobserve(ref);
-      });
-    };
-  }, []);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["17.5deg", "-17.5deg"])
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-17.5deg", "17.5deg"])
+
+  const handleMouseMove = (e) => {
+    const rect = cardRef.current.getBoundingClientRect()
+
+    const width = rect.width
+    const height = rect.height
+
+    const mouseX = e.clientX - rect.left
+    const mouseY = e.clientY - rect.top
+
+    const xPct = mouseX / width - 0.5
+    const yPct = mouseY / height - 0.5
+
+    x.set(xPct)
+    y.set(yPct)
+  }
+
+  const handleMouseLeave = () => {
+    x.set(0)
+    y.set(0)
+  }
 
   return (
-    <section className="min-h-screen flex flex-col md:flex-row">
-      <div className="md:w-1/2 relative">
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          layout="fill"
-          objectFit="cover"
-          priority
-        />
-      </div>
-      <div className="md:w-1/2 bg-white p-12 overflow-y-auto max-h-screen">
-        <h2 className="text-4xl font-bold mb-8" style={{ color: secondaryColor }}>{title}</h2>
-        <ul className="space-y-8">
-          {features.map((feature, index) => {
-            const Icon = iconMap[feature.icon] || CircleCheckBig;
-            return (
-              <li
-                key={index}
-                ref={(el) => (featureRefs.current[index] = el)}
-                className="flex items-start opacity-100 transform translate-y-4 transition-all duration-500 ease-out data-[animated=true]:translate-y-0"
-              >
-                <div className="mr-4 flex-shrink-0" style={{ color: primaryColor }}>
-                  <Icon className="h-8 w-8" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-black mb-2">{feature.title}</h3>
-                  <p className="text-gray-900">{feature.description}</p>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-      {/* <motion.button
-        className="fixed bottom-8 right-8 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:bg-opacity-90 transition duration-300"
-        style={{ backgroundColor: primaryColor }}
-        onClick={() => setShowForm(!showForm)}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+    <motion.div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      className="relative w-full h-full"
+    >
+      <div 
+        className="rounded-3xl bg-gradient-to-br from-white/40 to-white/5 backdrop-blur-sm p-8 shadow-xl border border-white/10"
+        style={{
+          transform: "translateZ(75px)",
+          transformStyle: "preserve-3d",
+        }}
       >
-        Get Started
-      </motion.button> */}
-      {showForm && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-        >
-          <motion.div
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0.9 }}
-            className="bg-white p-8 rounded-lg max-w-md w-full"
-          >
-            <h2 className="text-2xl font-bold mb-4" style={{ color: secondaryColor }}>Get Started with Multycomm</h2>
-            <form className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
-                <input type="text" id="name" name="name" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#25D366] focus:ring-[#25D366]" />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" id="email" name="email" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#25D366] focus:ring-[#25D366]" />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
-                <textarea id="message" name="message" rows="4" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#25D366] focus:ring-[#25D366]"></textarea>
-              </div>
-              <motion.button
-                type="submit"
-                className="w-full text-white font-semibold py-2 px-4 rounded-md hover:bg-opacity-90 transition duration-300"
-                style={{ backgroundColor: primaryColor }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Submit
-              </motion.button>
-            </form>
-            <button
-              className="mt-4 hover:underline"
-              style={{ color: secondaryColor }}
-              onClick={() => setShowForm(false)}
+        <div className="space-y-6">
+          {/* Header */}
+          <div className="flex items-center space-x-4">
+            <div 
+              className="w-14 h-14 rounded-2xl flex items-center justify-center"
+              style={{ backgroundColor: product.color + '20' }}
             >
-              Close
-            </button>
-          </motion.div>
-        </motion.div>
-      )}
-    </section>
-  );
+              <div 
+                className="w-10 h-10 rounded-xl flex items-center justify-center"
+                style={{ backgroundColor: product.color }}
+              >
+                <MessageCircle className="w-5 h-5 text-white" />
+              </div>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-black">{product.name}</h3>
+              <p className="text-sm text-black/70">{product.description}</p>
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div 
+            className="h-px w-full opacity-10"
+            style={{ backgroundColor: product.color }}
+          />
+
+          {/* Features Grid */}
+          <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+            {product.features.slice(0, Math.ceil(product.features.length/2)).map((feature, index) => (
+              <div 
+                key={index} 
+                className="flex items-center space-x-2 text-black/80"
+                style={{ transform: "translateZ(50px)" }}
+              >
+                <div 
+                  className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: product.color + '15' }}
+                >
+                  <feature.icon className="w-3.5 h-3.5" style={{ color: product.color }} />
+                </div>
+                <span className="text-sm font-medium">{feature.text}</span>
+              </div>
+            ))}
+            {product.features.slice(Math.ceil(product.features.length/2)).map((feature, index) => (
+              <div 
+                key={index + Math.ceil(product.features.length/2)} 
+                className="flex items-center space-x-2 text-black/80"
+                style={{ transform: "translateZ(50px)" }}
+              >
+                <div 
+                  className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: product.color + '15' }}
+                >
+                  <feature.icon className="w-3.5 h-3.5" style={{ color: product.color }} />
+                </div>
+                <span className="text-sm font-medium">{feature.text}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Button */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-full py-3.5 rounded-xl font-medium text-white text-sm"
+            style={{ 
+              backgroundColor: product.color,
+              transform: "translateZ(100px)",
+            }}
+          >
+            Learn More
+          </motion.button>
+        </div>
+      </div>
+    </motion.div>
+  )
 }
+
+const ProductShowcase = () => {
+  const containerRef = useRef(null)
+  
+  return (
+    <section 
+      ref={containerRef}
+      className="relative overflow-hidden py-20 bg-gradient-to-b from-white to-sky-100"
+    >
+      {/* Background decorations */}
+      <div className="absolute inset-0 bg-grid-black/[0.02] bg-[size:60px_60px]" />
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          rotate: [0, 180, 0],
+        }}
+        transition={{ duration: 20, repeat: Infinity }}
+        className="absolute right-[10%] top-[20%] h-64 w-64 rounded-full bg-gradient-to-r from-[#FF6B6B] to-[#3B82F6] opacity-10"
+      />
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          rotate: [0, 180, 0],
+        }}
+        transition={{ duration: 20, repeat: Infinity }}
+        className="absolute left-[10%] bottom-[20%] h-64 w-64 rounded-full bg-gradient-to-r from-[#FF6B6B] to-[#3B82F6] opacity-10"
+      />
+
+      <div className="container mx-auto px-4 mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <h2 className="text-4xl font-bold text-black mb-4">Our Products</h2>
+          <p className="text-xl text-black/70">Choose the solution that best fits your needs</p>
+        </motion.div>
+      </div>
+
+      <div className="relative container mx-auto px-4">
+        <div className="grid md:grid-cols-2 gap-12 perspective-[1000px]">
+          {products.map((product, index) => (
+            <div key={index} className="h-[500px]">
+              <Card3D product={product} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default ProductShowcase

@@ -5,13 +5,13 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import {
   MessageSquare, Upload, CheckCircle, BarChart2, Send, Users, Clock, FileText, 
-  PieChart, Code, Bot, MessageCircle, UserCheck, Zap, Workflow, Mail, ThumbsUp, 
+  PieChart, Code, Bot, MessageCircle, UserCheck, Zap, Mail, ThumbsUp, 
   FileSpreadsheet, Calendar, Settings
 } from 'lucide-react'
 
 const iconMap = {
   MessageSquare, Upload, CheckCircle, BarChart2, Send, Users, Clock, FileText, 
-  PieChart, Code, Bot, MessageCircle, UserCheck, Zap, Workflow, Mail, ThumbsUp, 
+  PieChart, Code, Bot, MessageCircle, UserCheck, Zap, Mail, ThumbsUp, 
   FileSpreadsheet, Calendar, Settings
 }
 
@@ -44,24 +44,4 @@ const FeatureCard = ({ icon, title, description }) => {
   )
 }
 
-export default function FeatureSection({ title, features, backgroundColor = "bg-gray-100" }) {
-  return (
-    <section className={`py-20 ${backgroundColor}`}>
-      <div className="container mx-auto px-4">
-        <motion.h2 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-4xl font-bold text-center text-gray-800 mb-12"
-        >
-          {title}
-        </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <FeatureCard key={index} {...feature} />
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
+export default FeatureCard
