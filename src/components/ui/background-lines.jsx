@@ -99,8 +99,8 @@ const SVG = ({
             ease: "linear",
             repeat: Infinity,
             repeatType: "loop",
-            delay: Math.floor(Math.random() * 10),
-            repeatDelay: Math.floor(Math.random() * 10 + 2),
+            delay: 2,
+            repeatDelay: 5,
           }}
           key={`path-first-${idx}`} />
       ))}
@@ -119,8 +119,8 @@ const SVG = ({
             ease: "linear",
             repeat: Infinity,
             repeatType: "loop",
-            delay: Math.floor(Math.random() * 10),
-            repeatDelay: Math.floor(Math.random() * 10 + 2),
+            delay: 3,
+            repeatDelay: 6,
           }}
           key={`path-second-${idx}`} />
       ))}

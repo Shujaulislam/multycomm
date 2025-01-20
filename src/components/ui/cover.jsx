@@ -82,8 +82,8 @@ export const Cover = ({
         <Beam
           key={index}
           hovered={hovered}
-          duration={Math.random() * 2 + 1}
-          delay={Math.random() * 2 + 1}
+          duration={1.5}
+          delay={1}
           width={containerWidth}
           style={{
             top: `${position}px`,
@@ -176,8 +176,8 @@ export const Beam = ({
             duration: hovered ? 0.5 : duration ?? 2,
             ease: "linear",
             repeat: Infinity,
-            delay: hovered ? Math.random() * (1 - 0.2) + 0.2 : 0,
-            repeatDelay: hovered ? Math.random() * (2 - 1) + 1 : delay ?? 1,
+            delay: hovered ? 0.3 : 0,
+            repeatDelay: hovered ? 1.5 : delay ?? 1,
           }}>
           <stop stopColor="#2EB9DF" stopOpacity="0" />
           <stop stopColor="#3b82f6" />

@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { memo } from 'react'
 import { Facebook, Twitter, LinkedinIcon as LinkedIn, Instagram } from 'lucide-react'
 
-export default function Footer() {
+const Footer = memo(function Footer() {
   return (
     <footer className="bg-gradient-to-b from-black via-gray-900 to-black text-gray-300 shadow-lg border-t border-gray-800">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -85,7 +86,7 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             {/* Copyright */}
             <p className="text-sm text-gray-400 text-center sm:text-left">
-              &copy; {new Date().getFullYear()} Multycomm. All rights reserved.
+              &copy; 2024 Multycomm. All rights reserved.
             </p>
 
             {/* Social Links */}
@@ -124,4 +125,6 @@ export default function Footer() {
       </div>
     </footer>
   )
-}
+})
+
+export default Footer

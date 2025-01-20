@@ -116,8 +116,8 @@ export default function PricingSection() {
       'bg-cyan-100',
     ][index]}`}
     style={{
-      top: `${Math.random() * 80}%`,
-      left: `${Math.random() * 80}%`,
+      top: `${40}%`,
+      left: `${40}%`,
       animationDelay: `${index * 2000}ms`,
     }}
   />

@@ -9,8 +9,11 @@ export default function FloatingCTA() {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
+      const offset = window.pageYOffset || document.documentElement.scrollTop;
+      if (offset > 300) {
         setIsVisible(true)
       } else {
         setIsVisible(false)
@@ -18,6 +21,7 @@ export default function FloatingCTA() {
     }
 
     window.addEventListener('scroll', toggleVisibility)
+    toggleVisibility() // Check initial position
 
     return () => window.removeEventListener('scroll', toggleVisibility)
   }, [])
@@ -61,4 +65,3 @@ export default function FloatingCTA() {
     </AnimatePresence>
   )
 }
-

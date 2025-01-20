@@ -1,18 +1,30 @@
 "use client"
 
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 import HeroSection from '@/components/HeroSection'
 import PriceTable from '@/components/PriceTable';
-import ProductShowcase from '@/components/ProductShowcase';
 import FAQ from '@/components/FAQ';
 import BlogPreview from '@/components/BlogPreview';
 import FloatingCTA from '@/components/FloatingCTA';
 import ComparisonTable from '@/components/ComparisonTable';
 import HeroGreen from '@/components/HeroGreen';
-import Advantages from '@/components/Advantages';
-import Integration from '@/components/Integration';
 
+// Dynamically import below-the-fold components
+const Advantages = dynamic(() => import('@/components/Advantages'), {
+  loading: () => <div className="min-h-[400px]" />,
+  ssr: true
+})
 
+const ProductShowcase = dynamic(() => import('@/components/ProductShowcase'), {
+  loading: () => <div className="min-h-[400px]" />,
+  ssr: false
+})
+
+const Integration = dynamic(() => import('@/components/Integration'), {
+  loading: () => <div className="min-h-[400px]" />,
+  ssr: false
+})
 
 export default function Home() {
   return (
@@ -35,20 +47,12 @@ export default function Home() {
           {/* Hero Section */}
           <HeroGreen />
 
-          {/* Advantages Section */}
+          {/* Dynamically loaded sections */}
           <Advantages />
-
-          {/* Product Showcase */}
           <ProductShowcase />
-
-          {/* Comparison Table */}
           <ComparisonTable />
-
-          {/* Price Table */}
           {/* <PriceTable /> */}
-
-          {/* Integration Section */}
-            <Integration />
+          <Integration />
           <FAQ />
           <BlogPreview />
           <FloatingCTA />

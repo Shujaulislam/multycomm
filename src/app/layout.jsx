@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/MultyCommLogo.ico"></link>
+        <link rel="icon" href="/MultyComm.ico"></link>
         <link rel="apple-touch-icon" sizes="180x180" href="/MultyCommLogo.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/MultyComm.ico" />
         <link rel="icon" type="image/png" sizes="16x16" href="/MultyComm.ico" />

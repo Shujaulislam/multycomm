@@ -9,12 +9,21 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <nav className="bg-gradient-to-b from-white via-gray-100 to-white text-[#364c63] shadow-md fixed w-full top-0 z-50">
+    <nav className="bg-white text-[#364c63] shadow-md fixed w-full top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className='relative'>
-              <Image src="/logo.webp" alt="Multycomm Logo" style={{ mixBlendMode:'inherit' }} width={150} height={40} />
+              <Image 
+                src="/logo.webp" 
+                alt="Multycomm Logo" 
+                style={{ mixBlendMode:'inherit' }} 
+                width={150} 
+                height={40}
+                priority
+                loading="eager"
+                quality={90}
+              />
             </Link>
           </div>
 
